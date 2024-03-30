@@ -17,5 +17,8 @@
     "node-geocoder": "^4.3.0",
     "nodemon": "^3.1.0",
     "supertest": "^6.3.4"
+  },
+  "scripts": {
+    "lint": "eslint ."
   }
 }
