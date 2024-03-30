@@ -19,6 +19,6 @@
     "supertest": "^6.3.4"
   },
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint . --fix"
   }
 }
