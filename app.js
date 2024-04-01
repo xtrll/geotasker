@@ -1,13 +1,14 @@
-const express = require('express')
-const app = express()
-const router = express.Router()
+const express = require('express');
 
-const PORT = process.env.PORT || 3000
+const app = express();
+const router = express.Router();
+
+const PORT = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-  res.send('GeoTasker API Running')
-})
+  res.send('GeoTasker API Running');
+});
 
 app.listen(PORT, () => {
-  console.log(`Running on port ${PORT}`)
-})
+  console.log(`Running on port ${PORT}`);
+});
