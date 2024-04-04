@@ -1,4 +1,7 @@
-const createUser = async (req, res) => {
+import User from '../models/userSchema';
+
+// eslint-disable-next-line import/prefer-default-export
+export const createUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
