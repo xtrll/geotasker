@@ -1,4 +1,4 @@
-import User from '../models/userSchema';
+import User from '../models/userSchema.js';
 
 // eslint-disable-next-line import/prefer-default-export
 export const createUser = async (req, res) => {
