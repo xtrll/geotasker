@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input[type=text], input[type=email], input[type=password] {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .action {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Register</h2>
+    <form id="registrationForm">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <div class="action">
+            <button type="submit">Register</button>
+            <button type="button" id="autoCreate">Auto Create Account</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        // Here, implement the functionality for registration
+        console.log(`Registering: ${username}, ${email}, ${password}`);
+    });
+
+    document.getElementById('autoCreate').addEventListener('click', function() {
+        // Here, generate a random user and implement the functionality for auto-creation
+        const randomUser = `user${Math.floor(Math.random() * 10000)}`;
+        const randomEmail = `${randomUser}@example.com`;
+        const randomPassword = `pass${Math.floor(Math.random() * 10000)}`;
+
+        console.log(`Auto creating account for: ${randomUser}, ${randomEmail}, ${randomPassword}`);
+    });
+</script>
+
+</body>
+</html>
+
