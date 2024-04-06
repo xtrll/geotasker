@@ -5,9 +5,6 @@
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "eslint": "^8.57.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.29.1",
     "express": "^4.19.2",
     "express-async-handler": "^1.2.0",
     "firebase-admin": "^12.0.0",
@@ -20,13 +17,42 @@
     "node-geocoder": "^4.3.0",
     "supertest": "^6.3.4"
   },
+
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1"
   },
   "scripts": {
     "lint": "eslint . --fix",
     "dev": "nodemon app.js",
     "start": "node app.js"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es2021": true
+    },
+    "extends": "airbnb-base",
+    "parserOptions": {
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    },
+    "overrides": [
+      {
+        "files": ["*.js"],
+        "env": {
+          "node": true
+        },
+        "parserOptions": {
+          "ecmaVersion": 12,
+          "sourceType": "script"
+        }
+      }
+    ],
+    "rules": {
+    }
   },
   "type": "module"
 }
