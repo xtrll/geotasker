@@ -22,12 +22,15 @@ mongoose.connect(MONGO_URI)
   });
 
 app.use(express.json());
+app.use(express.static('public'));
 
-app.use('/user', userRouter);
+app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-  res.send('GeoTasker API Running');
+  res.render('index', { title: 'Authorization Page' });
 });
+
+app.use('/user', userRouter);
 
 app.use((req, res) => {
   res.status(404).send('Page not found');

@@ -8,11 +8,15 @@ export const createUser = async (req, res) => {
     const newUser = new User({
       username,
       email,
-      password,
+      password, // is hashed inside userSchema
     });
+    const user = await newUser.save();
 
-    await newUser.save();
-    res.status(201).json(newUser);
+    res.json({
+      success: true,
+      message: 'User successfully registered!',
+      user: { id: user._id, username: user.username, email: user.email },
+    });
   } catch (e) {
     res.status(500).json({ message: 'Error creating user', e: e.message });
   }

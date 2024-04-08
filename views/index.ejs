@@ -66,21 +66,26 @@
 <script>
     document.getElementById('registrationForm').addEventListener('submit', function(event) {
         event.preventDefault();
-        const username = document.getElementById('username').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+        const formData = {
+            username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value
+        }
 
-        // Here, implement the functionality for registration
-        console.log(`Registering: ${username}, ${email}, ${password}`);
-    });
-
-    document.getElementById('autoCreate').addEventListener('click', function() {
-        // Here, generate a random user and implement the functionality for auto-creation
-        const randomUser = `user${Math.floor(Math.random() * 10000)}`;
-        const randomEmail = `${randomUser}@example.com`;
-        const randomPassword = `pass${Math.floor(Math.random() * 10000)}`;
-
-        console.log(`Auto creating account for: ${randomUser}, ${randomEmail}, ${randomPassword}`);
+        fetch('/user/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch((e) => {
+            console.error('Error: ', e);
+        });
     });
 </script>
 
