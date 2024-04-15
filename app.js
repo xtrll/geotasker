@@ -2,6 +2,9 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRouter from './src/api/routes/userRouter.js';
+import authRouter from './src/api/routes/authRouter.js';
+import authMiddleware from "./src/api/middleware/authMiddleware.js";
+import bodyParser from "body-parser";
 
 dotenv.config();
 
@@ -29,8 +32,12 @@ app.set('view engine', 'ejs');
 app.get('/', (req, res) => {
   res.render('index', { title: 'Authorization Page' });
 });
+app.get('/login', (req, res) => {
+    res.render('login', {title: 'Login Page'});
+})
 
 app.use('/user', userRouter);
+app.use('/login', authRouter);
 
 app.use((req, res) => {
   res.status(404).send('Page not found');

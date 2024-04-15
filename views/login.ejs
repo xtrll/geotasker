@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Login</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"> <!-- Assuming you have CSS in public/css/style.css -->
+</head>
+<body>
+
+<div class="container">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <input type="text" id="loginUsername" placeholder="Username" required>
+        <input type="password" id="loginPassword" placeholder="Password" required>
+        <div class="action">
+            <button type="submit">Login</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = {
+            username: document.getElementById('loginUsername').value,
+            password: document.getElementById('loginPassword').value
+        }
+
+        fetch('/login/auth', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Login failed');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Login successful', data);
+                // Redirect user to another page or update the UI accordingly
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    });
+</script>
+
+</body>
+</html>
+
