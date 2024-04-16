@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-import User from "../models/userSchema.js";
-import bcrypt from "bcryptjs";
+import bcrypt from 'bcryptjs';
+import User from '../models/userSchema.js';
 
 export const generateToken = (userId) => {
   const payload = {
@@ -28,6 +28,6 @@ export const authenticateUser = async (username, password) => {
   }
 
   return generateToken(user.id);
-}
+};
 
 export const verifyToken = (token) => jwt.verify(token, process.env.JWT_SECRET);

@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRouter from './src/api/routes/userRouter.js';
 import authRouter from './src/api/routes/authRouter.js';
-import authMiddleware from "./src/api/middleware/authMiddleware.js";
+import authMiddleware from './src/api/middleware/authMiddleware.js';
 
 dotenv.config();
 
@@ -32,15 +32,14 @@ app.get('/', (req, res) => {
   res.render('index', { title: 'Registration' });
 });
 app.get('/login', (req, res) => {
-    res.render('login', {title: 'Login'});
-})
+  res.render('login', { title: 'Login' });
+});
 app.get('/reminders', (req, res) => {
-    res.render('reminders', {title: 'Reminders'});
-})
+  res.render('reminders', { title: 'Reminders' });
+});
 
 app.use('/user', userRouter);
 app.use('/login', authRouter);
-
 
 app.use((req, res) => {
   res.status(404).send('Page not found');
