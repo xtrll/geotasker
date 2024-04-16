@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reminder Page</title>
+    <style>
+
+
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #121212;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            border: 1px solid #333333;
+        }
+        h2 {
+            text-align: center;
+            color: #fc7712;
+        }
+        form, .reminder-list {
+            display: flex;
+            flex-direction: column;
+        }
+        input[type=text], input[type=datetime-local] {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #2a2a2a;
+            border: 1px solid #444444;
+            color: #ffffff;
+        }
+        input[type=text]::placeholder, input[type=datetime-local]::placeholder {
+            color: #b3b3b3;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #fc7712;
+            color: #ffffff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e06900;
+        }
+        .reminder-item {
+            padding: 10px;
+            margin-bottom: 5px;
+            background-color: #242424;
+            border-radius: 4px;
+            border: 1px solid #3c3c3c;
+            color: #ffffff;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .action {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Your Reminders</h2>
+    <div class="reminder-list" id="reminderList">
+        <!-- Reminder items will be inserted here -->
+    </div>
+    <h2>Create New Reminder</h2>
+    <form id="newReminderForm" onsubmit="submitNewReminder(event)">
+        <input type="text" id="reminderName" placeholder="Reminder Name" required>
+        <input type="datetime-local" id="reminderTime" required>
+        <button type="submit">Set Reminder</button>
+    </form>
+</div>
+
+<script>
+    // Function to submit the new reminder to the server
+    function submitNewReminder(event) {
+        event.preventDefault();
+        const reminderName = document.getElementById('reminderName').value;
+        const reminderTime = document.getElementById('reminderTime').value;
+
+        // Construct the reminder object
+        const reminderData = {
+            name: reminderName,
+            time: reminderTime
+        };
+
+        // Send this data to your server using `fetch` or AJAX
+        console.log('Submitting new reminder:', reminderData);
+        fetch('/reminders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+            },
+            body: JSON.stringify(reminderData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Reminder created:', data);
+            })
+            .catch(error => {
+                console.error('Error creating reminder:', error);
+            });
+    }
+
+    // Load reminders and display them
+    // Invoke a function to make a request to server to load reminders
+    // For example purposes, just listing static content
+    document.getElementById('reminderList').innerHTML = `
+            <div class="reminder-item">
+                <span>Doctor's Appointment</span>
+                <span>2023-04-05 14:30</span>
+            </div>
+            <div class="reminder-item">
+                <span>Meeting with Project Team</span>
+                <span>2023-04-06 09:00</span>
+            </div>
+            <!-- More reminders -->
+        `;
+</script>
+</body>
+</html>
