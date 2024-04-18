@@ -47,7 +47,7 @@ app.use('/user', userRouter);
 app.use('/login', authRouter);
 
 app.use((req, res) => {
-  res.status(404).send('Page not found');
+    res.status(404).json({ meesage: 'Page not found' });
 });
 
 mongoose.connection.on('error', (err) => {
