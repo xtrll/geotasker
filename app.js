@@ -1,6 +1,8 @@
 import express from 'express';
+import session from 'express-session';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 import userRouter from './src/api/routes/userRouter.js';
 import authRouter from './src/api/routes/authRouter.js';
 import authMiddleware from './src/api/middleware/authMiddleware.js';
@@ -25,6 +27,13 @@ mongoose.connect(MONGO_URI)
 
 app.use(express.json());
 app.use(express.static('public'));
+app.use(cookieParser());
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: 'auto', httpOnly: true, maxAge: 3600000 }
+}));
 
 app.set('view engine', 'ejs');
 
@@ -34,7 +43,7 @@ app.get('/', (req, res) => {
 app.get('/login', (req, res) => {
   res.render('login', { title: 'Login' });
 });
-app.get('/reminders', (req, res) => {
+app.get('/reminders', authMiddleware, (req, res) => {
   res.render('reminders', { title: 'Reminders' });
 });
 

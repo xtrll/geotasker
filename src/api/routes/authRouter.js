@@ -8,7 +8,9 @@ router.post('/auth', async (req, res) => {
 
   try {
     const token = await authenticateUser(username, password);
-    res.json({ token });
+
+    res.cookie('token', token, { httpOnly: true, secure: process.NODE_ENV === 'production', maxAge: 3600000 });
+    res.status(200).json({ message: 'Logged in successfully' });
   } catch (e) {
     res.status(401).json([e.message]);
   }
