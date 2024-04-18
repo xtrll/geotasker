@@ -38,6 +38,11 @@ app.get('/reminders', (req, res) => {
   res.render('reminders', { title: 'Reminders' });
 });
 
+app.post('/logout', (req, res) => {
+    res.clearCookie('token');
+    res.status(200).json({ message: 'Logged out successfully '});
+});
+
 app.use('/user', userRouter);
 app.use('/login', authRouter);
 
